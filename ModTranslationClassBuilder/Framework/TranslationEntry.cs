@@ -25,11 +25,15 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder.Framework
         /// <summary>Get the translation text escaped for use in XML doc comments.</summary>
         public string GetTranslationTextForXmlDoc()
         {
-            return this.TranslationText
-                .Replace("<", "&lt;")
-                .Replace(">", "&gt;")
-                .Replace("\r", "\\r")
-                .Replace("\n", "\\n");
+            string text = this.TranslationText;
+
+            if (text.Length > Constants.MaxExcerptLength)
+                text = text.Substring(0, Constants.MaxExcerptLength - 3) + "...";
+
+            foreach (var pair in Constants.ReplaceExcerptStrings)
+                text = text.Replace(pair.Key, pair.Value);
+
+            return text;
         }
     }
 }

@@ -53,6 +53,12 @@ namespace Pathoschild.Stardew.TestMod
             return I18n.GetByKey("edge-cases.text-with-newlines");
         }
 
+        /// <summary>Get a translation equivalent to "This is just an example of some very long translation text that could appear in some mod translation files, presumably for the mods to use in places where they need very long translation strings. One thing to keep in mind is that there's no real limit to the length that translation strings can reach, but we probably don't need the entire translation string added to the method's XML docs for IntelliSense. Instead we can just truncate at some reasonable text length, say 500 characters right abo...".</summary>
+        public static string EdgeCases_VeryLongText()
+        {
+            return I18n.GetByKey("edge-cases.very-long-text");
+        }
+
 
         /*********
         ** Private methods
