@@ -47,6 +47,12 @@ namespace Pathoschild.Stardew.TestMod
             return I18n.GetByKey("percentage", new { value });
         }
 
+        /// <summary>Get a translation equivalent to "Some text that\nhas newlines".</summary>
+        public static string EdgeCases_TextWithNewlines()
+        {
+            return I18n.GetByKey("edge-cases.text-with-newlines");
+        }
+
 
         /*********
         ** Private methods

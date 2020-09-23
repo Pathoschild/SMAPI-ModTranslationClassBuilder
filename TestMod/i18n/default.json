@@ -1,5 +1,7 @@
 {
     "yesterday": "yesterday",
     "ready-now": "ready now!",
-    "percentage": "{{value}}%"
+    "percentage": "{{value}}%",
+
+    "edge-cases.text-with-newlines": "Some text that\nhas newlines"
 }
