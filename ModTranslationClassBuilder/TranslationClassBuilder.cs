@@ -23,10 +23,8 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder
         /// <param name="addKeyMap">Whether to add a static class to get constant translation keys.</param>
         public static string Generate(string jsonPath, string className = "I18n", string classModifiers = "internal static", bool addGetByKey = false, bool addKeyMap = false)
         {
-            // get reserved method names
-            var reservedNames = new HashSet<string>(TranslationClassBuilder.GetReservedNames(addGetByKey, addKeyMap));
-
             // get metadata
+            var reservedNames = new HashSet<string>(TranslationClassBuilder.GetReservedNames(className, addGetByKey, addKeyMap));
             TranslationEntry[] entries = TranslationClassBuilder.ReadTranslationFile(jsonPath, reservedNames).ToArray();
             bool usesDictionary = entries.SelectMany(p => p.Tokens).Any(p => p.ParameterName != p.Key);
             string @namespace = (string)System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("NamespaceHint");
@@ -150,10 +148,12 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder
         ** Private methods
         *********/
         /// <summary>Get the names which can't be used by a translation key.</summary>
+        /// <param name="className">The name of the class to generate.</param>
         /// <param name="addGetByKey">Whether to add a <c>GetByKey</c> method which fetches a translation by its key, bypassing the strongly-typed methods.</param>
         /// <param name="addKeyMap">Whether to add a static class to get constant translation keys.</param>
-        private static IEnumerable<string> GetReservedNames(bool addGetByKey, bool addKeyMap)
+        private static IEnumerable<string> GetReservedNames(string className, bool addGetByKey, bool addKeyMap)
         {
+            yield return className;
             yield return "Init";
             yield return "Translations";
             if (addGetByKey)
@@ -236,7 +236,7 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder
             }
 
             // escape duplicate method names
-            if (reservedNames.Contains(name))
+            while (reservedNames.Contains(name))
                 name = "_" + name;
 
             return TranslationClassBuilder.PrefixIdentifierIfNeeded(name);
