@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!--build-->
+    <AssemblyName>Pathoschild.Stardew.ModTranslationClassBuilder</AssemblyName>
+    <RootNamespace>Pathoschild.Stardew.ModTranslationClassBuilder</RootNamespace>
+    <TargetFramework>net452</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+
+    <!--NuGet package-->
+    <PackageId>Pathoschild.Stardew.ModTranslationClassBuilder</PackageId>
+    <Title>SMAPI mod translation class builder</Title>
+    <Version>1.0.0-alpha.20200922</Version>
+    <Authors>Pathoschild</Authors>
+    <Description>Autogenerate a strongly-typed class to access i18n translation files from your SMAPI mod code. See the readme for instructions.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>images/package-icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/Pathoschild/smapi-mod-translation-class-builder#readme</PackageProjectUrl>
+    <PackageReleaseNotes>See release notes at https://github.com/Pathoschild/smapi-mod-translation-class-builder/blob/develop/release-notes.md#10</PackageReleaseNotes>
+    <RepositoryUrl>https://github.com/Pathoschild/smapi-mod-translation-class-builder</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>smapi;stardew;valley</PackageTags>
+
+    <!-- build settings -->
+    <Platforms>x86</Platforms>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="package-icon.png" Pack="true" PackagePath="images/" />
+  </ItemGroup>
+
+</Project>
