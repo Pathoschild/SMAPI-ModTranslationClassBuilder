@@ -24,7 +24,7 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder
         public static string Generate(string jsonPath, string className = "I18n", string classModifiers = "internal static", bool addGetByKey = false, bool addKeyMap = false)
         {
             // get metadata
-            var reservedNames = new HashSet<string>(TranslationClassBuilder.GetReservedNames(className, addGetByKey, addKeyMap));
+            var reservedNames = new HashSet<string>(TranslationClassBuilder.GetReservedNames(className, addKeyMap));
             TranslationEntry[] entries = TranslationClassBuilder.ReadTranslationFile(jsonPath, reservedNames).ToArray();
             bool usesDictionary = entries.SelectMany(p => p.Tokens).Any(p => p.ParameterName != p.Key);
             string @namespace = (string)System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("NamespaceHint");
@@ -32,6 +32,7 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder
             // build output
             StringBuilder output = new StringBuilder();
             output
+                .AppendLine("using System;")
                 .AppendLine("using System.CodeDom.Compiler;");
             if (usesDictionary)
             {
@@ -98,19 +99,6 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder
                 .AppendLine($"            {className}.Translations = translations;")
                 .AppendLine("        }");
 
-            if (addGetByKey)
-            {
-                output
-                    .AppendLine()
-                    .AppendLine("        /// <summary>Get a translation by its key.</summary>")
-                    .AppendLine(@"        /// <param name=""key"">The translation key.</param>")
-                    .AppendLine(@"        /// <param name=""tokens"">An object containing token key/value pairs. This can be an anonymous object (like <c>new { value = 42, name = ""Cranberries"" }</c>), a dictionary, or a class instance.</param>")
-                    .AppendLine("        public static string GetByKey(string key, object tokens = null)")
-                    .AppendLine("        {")
-                    .AppendLine($"            return {className}.Translations.Get(key, tokens);")
-                    .AppendLine("        }");
-            }
-
             foreach (TranslationEntry entry in entries)
             {
                 // summary doc
@@ -131,10 +119,33 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder
                     output
                         .AppendLine($@"        public static string {entry.MethodName}({renderedArgs})")
                         .AppendLine("        {")
-                        .AppendLine($@"            return {className}.Translations.Get({renderedKey}{renderedTokenObj});")
+                        .AppendLine($@"            return {className}.GetByKey({renderedKey}{renderedTokenObj});")
                         .AppendLine("        }");
                 }
             }
+
+            if (addGetByKey)
+                output.AppendLine();
+            else
+            {
+                output
+                    .AppendLine()
+                    .AppendLine()
+                    .AppendLine("        /*********")
+                    .AppendLine("        ** Private methods")
+                    .AppendLine("        *********/");
+            }
+
+            output
+                .AppendLine("        /// <summary>Get a translation by its key.</summary>")
+                .AppendLine(@"        /// <param name=""key"">The translation key.</param>")
+                .AppendLine(@"        /// <param name=""tokens"">An object containing token key/value pairs. This can be an anonymous object (like <c>new { value = 42, name = ""Cranberries"" }</c>), a dictionary, or a class instance.</param>")
+                .AppendLine($"        {(addGetByKey ? "public" : "private")} static string GetByKey(string key, object tokens = null)")
+                .AppendLine("        {")
+                .AppendLine($"            if ({className}.Translations == null)")
+                .AppendLine($@"                throw new InvalidOperationException($""You must call {{nameof({className})}}.{{nameof({className}.Init)}} from the mod's entry method before reading translations."");")
+                .AppendLine($"            return {className}.Translations.Get(key, tokens);")
+                .AppendLine("        }");
 
             output
                 .AppendLine("    }")
@@ -149,15 +160,13 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder
         *********/
         /// <summary>Get the names which can't be used by a translation key.</summary>
         /// <param name="className">The name of the class to generate.</param>
-        /// <param name="addGetByKey">Whether to add a <c>GetByKey</c> method which fetches a translation by its key, bypassing the strongly-typed methods.</param>
         /// <param name="addKeyMap">Whether to add a static class to get constant translation keys.</param>
-        private static IEnumerable<string> GetReservedNames(string className, bool addGetByKey, bool addKeyMap)
+        private static IEnumerable<string> GetReservedNames(string className, bool addKeyMap)
         {
             yield return className;
             yield return "Init";
             yield return "Translations";
-            if (addGetByKey)
-                yield return "GetByKey";
+            yield return "GetByKey";
             if (addKeyMap)
                 yield return "Keys";
         }
