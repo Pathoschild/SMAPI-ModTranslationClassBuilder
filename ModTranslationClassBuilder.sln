@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pathoschild.Stardew.ModTranslationClassBuilder", "ModTranslationClassBuilder\Pathoschild.Stardew.ModTranslationClassBuilder.csproj", "{C2FB8733-EA39-4433-B4F1-4683642142B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModTranslationClassBuilder", "ModTranslationClassBuilder\ModTranslationClassBuilder.csproj", "{C2FB8733-EA39-4433-B4F1-4683642142B9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{1AA09599-21C9-4994-87C3-1F3EE6A97A01}"
 	ProjectSection(SolutionItems) = preProject
@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".root", ".root", "{1AA09599
 		README.md = README.md
 		release-notes.md = release-notes.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMod", "TestMod\TestMod.csproj", "{F125642B-FF2F-4C7C-8433-3F68098167B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{C2FB8733-EA39-4433-B4F1-4683642142B9}.Debug|x86.Build.0 = Debug|x86
 		{C2FB8733-EA39-4433-B4F1-4683642142B9}.Release|x86.ActiveCfg = Release|x86
 		{C2FB8733-EA39-4433-B4F1-4683642142B9}.Release|x86.Build.0 = Release|x86
+		{F125642B-FF2F-4C7C-8433-3F68098167B5}.Debug|x86.ActiveCfg = Debug|x86
+		{F125642B-FF2F-4C7C-8433-3F68098167B5}.Debug|x86.Build.0 = Debug|x86
+		{F125642B-FF2F-4C7C-8433-3F68098167B5}.Release|x86.ActiveCfg = Release|x86
+		{F125642B-FF2F-4C7C-8433-3F68098167B5}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

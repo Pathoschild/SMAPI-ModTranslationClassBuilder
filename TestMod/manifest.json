@@ -1,0 +1,8 @@
+{
+    "Name": "Test Mod",
+    "Author": "Pathoschild",
+    "Version": "1.0.0",
+    "Description": "A test mod for ModTranslationClassBuilder.",
+    "UniqueID": "Pathoschild.TestModForModTranslationClassBuilder",
+    "EntryDll": "Pathoschild.Stardew.TestMod.dll"
+}

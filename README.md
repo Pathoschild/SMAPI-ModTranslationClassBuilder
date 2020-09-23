@@ -32,6 +32,8 @@ string readyNow = I18n.ReadyNow();
 string percentage = I18n.Percentage(value: 100);
 ```
 
+See the [test mod](TestMod) for example of the generated class in an actual mod.
+
 ## Usage
 ### First-time setup
 1. [Install the NuGet package](https://www.nuget.org/packages/Pathoschild.Stardew.ModTranslationClassBuilder).
