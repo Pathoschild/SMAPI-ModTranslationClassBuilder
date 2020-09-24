@@ -66,7 +66,7 @@ namespace Pathoschild.Stardew.TestMod
         /// <summary>Get a translation by its key.</summary>
         /// <param name="key">The translation key.</param>
         /// <param name="tokens">An object containing token key/value pairs. This can be an anonymous object (like <c>new { value = 42, name = "Cranberries" }</c>), a dictionary, or a class instance.</param>
-        private static string GetByKey(string key, object tokens = null)
+        private static Translation GetByKey(string key, object tokens = null)
         {
             if (I18n.Translations == null)
                 throw new InvalidOperationException($"You must call {nameof(I18n)}.{nameof(I18n.Init)} from the mod's entry method before reading translations.");

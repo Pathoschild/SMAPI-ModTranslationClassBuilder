@@ -1,4 +1,4 @@
-**ModTranslationClassBuilder** autogenerates a strongly-typed class to access the [`i18n`
+**ModTranslationClassBuilder** autogenerates a strongly-typed class to access [`i18n`
 translation files](https://stardewvalleywiki.com/Modding:Modder_Guide/APIs/Translation)
 from your [SMAPI](https://smapi.io/) mod code.
 
@@ -32,7 +32,7 @@ string readyNow = I18n.ReadyNow();
 string percentage = I18n.Percentage(value: 100);
 ```
 
-See the [test mod](TestMod) for example of the generated class in an actual mod.
+See the [test mod](TestMod) for an example of the generated class in an actual mod.
 
 ## Usage
 ### First-time setup

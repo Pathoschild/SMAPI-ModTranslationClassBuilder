@@ -140,7 +140,7 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder
                 .AppendLine("        /// <summary>Get a translation by its key.</summary>")
                 .AppendLine(@"        /// <param name=""key"">The translation key.</param>")
                 .AppendLine(@"        /// <param name=""tokens"">An object containing token key/value pairs. This can be an anonymous object (like <c>new { value = 42, name = ""Cranberries"" }</c>), a dictionary, or a class instance.</param>")
-                .AppendLine($"        {(addGetByKey ? "public" : "private")} static string GetByKey(string key, object tokens = null)")
+                .AppendLine($"        {(addGetByKey ? "public" : "private")} static Translation GetByKey(string key, object tokens = null)")
                 .AppendLine("        {")
                 .AppendLine($"            if ({className}.Translations == null)")
                 .AppendLine($@"                throw new InvalidOperationException($""You must call {{nameof({className})}}.{{nameof({className}.Init)}} from the mod's entry method before reading translations."");")
