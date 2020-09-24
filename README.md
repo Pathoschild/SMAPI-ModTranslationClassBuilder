@@ -3,7 +3,7 @@ translation files](https://stardewvalleywiki.com/Modding:Modder_Guide/APIs/Trans
 from your [SMAPI](https://smapi.io/) mod code.
 
 ## Contents
-* [Example](#example)
+* [Why does this exist?](#why-does-this-exist)
 * [Usage](#usage)
   * [First-time setup](#first-time-setup)
   * [Update the file](#update-the-file)
@@ -13,24 +13,39 @@ from your [SMAPI](https://smapi.io/) mod code.
   * [Builder arguments](#builder-arguments)
 * [See also](#see-also)
 
-## Example
-Given this simple translation file:
-```json
-{
-    "yesterday": "yesterday",
-    "ready-now": "ready now!",
-    "percentage": "{{value}}%"
-}
+## Why does this exist?
+<dl>
+<dt>Without the package:</dt>
+<dd>
+
+Mods use code like this to read their translations:
+```c#
+string text = helper.Translation.Get("range-value", new { min = 1, max = 5 });
 ```
 
-The package will generate an `I18n` class (name configurable) which gets translations for the
-current game language:
+Unfortunately there's no validation at this point; if the key is `range` (not `range-value`) or the
+token name is `minimum` (not `min`), you won't know until you test that part of the mod in-game and
+see an error message.
 
-```cs
-string yesterday = I18n.Yesterday();
-string readyNow = I18n.ReadyNow();
-string percentage = I18n.Percentage(value: 100);
+That also means that after changing the translation files, you need to manually search the code for
+anywhere that referenced the translations to update them. That gets pretty tedious with larger
+mods, which might have hundreds of translations used across dozens of files.
+
+</dd>
+<dt>With the package:</dt>
+<dd>
+
+This package lets you write code like this instead:
+```c#
+string text = I18n.RangeValue(min: 1, max: 5);
 ```
+
+Since it's strongly typed, it's validated immediately as you type. For example, if you accidentally
+typed `I18n.RangeValues` instead, you'll see an immediate error that `RangeValues` doesn't exist
+without needing to test it in-game (or even compile the mod).
+
+</dd>
+</dl>
 
 See the [test mod](TestMod) for an example of the generated class in an actual mod.
 
