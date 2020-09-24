@@ -80,7 +80,7 @@ Just save the `I18n.tt` file again (no changes needed), and it'll regenerate the
 your latest `i18n/default.json` file.
 
 ### Conventions
-* The class uses the right namespace based on your project settings and its location within the
+* The class uses the correct namespace based on your project settings and its location within the
   project.
 
 * Translation keys are converted to CamelCase, with `.` changed to `_` to help group categories.
@@ -108,8 +108,8 @@ argument      | description
 `jsonPath`    | _(required)_ The absolute path to the `i18n/default.json` file for which to generate the class.
 `className`   | Default `I18n`. The name of the class to generate.
 `classModifiers` | Default `internal static`. Change the [access modifiers](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/access-modifiers) applied to the class (e.g. to make it public).
-`addGetByKey` | Default `false`. Whether to add a method to fetch a translation by its key, like `I18n.GetByKey("done-yesterday")`.
-`addKeyMap`   | Default `false`. Whether to add a nested static class to access translation keys like `I18n.Keys.DoneYesterday`.
+`addGetByKey` | Default `false`. Whether to add a method to fetch a translation by its key, like `I18n.GetByKey("ready-now")`.
+`addKeyMap`   | Default `false`. Whether to add a nested static class to access translation keys like `I18n.Keys.ReadyNow`.
 
 ## See also
 * [Release notes](release-notes.md)

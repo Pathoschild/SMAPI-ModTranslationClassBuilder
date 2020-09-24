@@ -13,13 +13,17 @@
     <!--NuGet package-->
     <PackageId>Pathoschild.Stardew.ModTranslationClassBuilder</PackageId>
     <Title>SMAPI mod translation class builder</Title>
-    <Version>1.0.0-alpha.20200922</Version>
+    <Version>1.0.0</Version>
     <Authors>Pathoschild</Authors>
     <Description>Autogenerate a strongly-typed class to access i18n translation files from your SMAPI mod code. See the readme for instructions.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>images/package-icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/Pathoschild/SMAPI-ModTranslationClassBuilder#readme</PackageProjectUrl>
-    <PackageReleaseNotes>See release notes at https://github.com/Pathoschild/SMAPI-ModTranslationClassBuilder/blob/develop/release-notes.md#10</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      - Initial implementation.
+      - Added builder arguments to configure output.
+      - Added automatic namespace based on location within project.
+    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/Pathoschild/SMAPI-ModTranslationClassBuilder</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>smapi;stardew;valley</PackageTags>
