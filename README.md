@@ -53,6 +53,7 @@ See the [test mod](TestMod) for an example of the generated class in an actual m
 ### First-time setup
 1. [Install the NuGet package](https://www.nuget.org/packages/Pathoschild.Stardew.ModTranslationClassBuilder).
 2. Build your mod project (so the package is in your build output).
+  * **This must be done first, otherwise you'll be unable to build the project or generate the template succesfully**
 3. Right-click the project, choose _Add > New Item_, and add a "Text Template" file named `I18n.tt`:  
    ![](docs/project-structure.png)
 4. Replace the new file's content with this:
