@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <!--build-->
     <AssemblyName>Pathoschild.Stardew.ModTranslationClassBuilder</AssemblyName>
@@ -29,8 +28,6 @@
     <PackageTags>smapi;stardew;valley</PackageTags>
 
     <!-- build settings -->
-    <Platforms>x86</Platforms>
-    <PlatformTarget>x86</PlatformTarget>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
@@ -41,5 +38,4 @@
   <ItemGroup>
     <None Include="package-icon.png" Pack="true" PackagePath="images/" />
   </ItemGroup>
-
 </Project>
