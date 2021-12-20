@@ -3,21 +3,17 @@
     <AssemblyName>Pathoschild.Stardew.TestMod</AssemblyName>
     <RootNamespace>Pathoschild.Stardew.TestMod</RootNamespace>
 
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.0.0-beta.20210916" />
+    <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ModTranslationClassBuilder\ModTranslationClassBuilder.csproj" />
+    <ProjectReference Include="..\ModTranslationClassBuilder\ModTranslationClassBuilder.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-    <None Update="I18n.tt" Generator="TextTemplatingFileGenerator" LastGenOutput="I18n.cs" />
-    <Compile Update="I18n.cs" DesignTime="True" AutoGen="True" DependentUpon="I18n.tt" />
-  </ItemGroup>
+  <Import Project="..\ModTranslationClassBuilder\assets\package.targets" />
 </Project>

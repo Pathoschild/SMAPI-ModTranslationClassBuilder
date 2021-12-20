@@ -1,6 +1,20 @@
 ← [README](README.md)
 
 # Release notes
+## Upcoming release
+* Updated for .NET 5 in Stardew Valley 1.5.5.
+* Added nullable annotations to generated class.
+* You no longer need a `.tt` template in your project.
+* You no longer need to compile the project before using `I18n`.
+* The package no longer writes the generated class to your project folder by default.
+
+**Update note:**  
+To update a project which uses an older version of this package:
+1. delete the `I18n.tt` and `I18n.cs` files;
+2. remove `<BundleExtraAssemblies>ThirdParty</BundleExtraAssemblies>` from your `.csproj` file if you only added it for this project;
+3. update the package;
+4. if you customized the settings, see the [new usage docs](README.md).
+
 ## 1.0.1
 Released 11 October 2021.
 

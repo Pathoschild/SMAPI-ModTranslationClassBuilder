@@ -6,11 +6,8 @@ from your [SMAPI](https://smapi.io/) mod code.
 * [Why does this exist?](#why-does-this-exist)
 * [Usage](#usage)
   * [First-time setup](#first-time-setup)
-  * [Update the file](#update-the-file)
   * [Conventions](#conventions)
 * [Customization](#customization)
-  * [File name & location](#file-name--location)
-  * [Builder arguments](#builder-arguments)
 * [See also](#see-also)
 
 ## Why does this exist?
@@ -52,65 +49,54 @@ See the [test mod](TestMod) for an example of the generated class in an actual m
 ## Usage
 ### First-time setup
 1. [Install the NuGet package](https://www.nuget.org/packages/Pathoschild.Stardew.ModTranslationClassBuilder).
-2. Build your mod project (so the package is in your build output).  
-   **Don't skip this step!** If you do, the `I18n.tt` added in the next step won't work.
-3. Right-click the project, choose _Add > New Item_, and add a "Text Template" file named `I18n.tt`:  
-   ![](docs/project-structure.png)
-4. Replace the new file's content with this:
-   ```
-   <#@ template hostspecific="true" language="C#" #>
-   <#@ output extension=".cs" #>
-   <#@ assembly name="$(TargetDir)\Pathoschild.Stardew.ModTranslationClassBuilder.dll"#>
-   <#@ import namespace="Pathoschild.Stardew.ModTranslationClassBuilder" #>
-   <#=
-   TranslationClassBuilder.Generate(
-       jsonPath: this.Host.ResolvePath("i18n/default.json")
-   )
-   #>
-   ```
-5. In your mod's `Entry` method, add this line:
+2. In your mod's `Entry` method, add this line:
    ```c#
    I18n.Init(helper.Translation);
    ```
+3. Click _Build > Rebuild Solution_ to generate the `I18n` class.
 
-That's it! When you save the file, it should automatically generate the `I18n` class. (It'll be
-tucked under the `I18n.tt` file in the Solution Explorer.)
-
-### Update the file
-Just save the `I18n.tt` file again (no changes needed), and it'll regenerate the `I18n` class from
-your latest `i18n/default.json` file.
+That's it! Now you can immediately use `I18n` anywhere in your mod code. The class will be updated
+whenever you rebuild the project.
 
 ### Conventions
-* The class uses the correct namespace based on your project settings and its location within the
-  project.
-
+* The class uses your assembly name as the default namespace; so if your mod project is `YourMod`,
+  then the generated file will be `YourMod.I18n`. You can [change that](#customization) if needed.
 * Translation keys are converted to CamelCase, with `.` changed to `_` to help group categories.
 
   For example:
 
-  key in `i18n/default.json` | method name
-  -------------------------- | -----------
-  `ready`                    | `Ready`
-  `ready-now`                | `ReadyNow`
-  `generic.ready-now`        | `Generic_ReadyNow`
+  key in `i18n/default.json` | method
+  -------------------------- | --------------------------
+  `ready`                    | `I18n.Ready()`
+  `ready-now`                | `I18n.ReadyNow()`
+  `generic.ready-now`        | `I18n.Generic_ReadyNow()`
 
 ## Customization
-### File name & location
-You can use any name for the `.tt` file (it doesn't need to be `I18n.tt`), and you can put it
-anywhere in the project (it doesn't need to be at the root). Just make sure to change the `jsonPath`
-value if you move it.
+You can configure the `I18n` class using a `<PropertyGroup>` section in your mod's `.csproj` file.
+Each property must be prefixed with `TranslationClassBuilder_`. For example, this changes the class
+name to `Translations`:
 
-### Builder arguments
-You can pass arguments to the `Generate` method in the `.tt` file to change how the class is
-generated.
+```xml
+<PropertyGroup>
+   <TranslationClassBuilder_ClassName>Translations</TranslationClassBuilder_ClassName>
+</PropertyGroup>
+```
 
-argument      | description
-------------- | -----------
-`jsonPath`    | _(required)_ The absolute path to the `i18n/default.json` file for which to generate the class.
-`className`   | Default `I18n`. The name of the class to generate.
-`classModifiers` | Default `internal static`. Change the [access modifiers](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/access-modifiers) applied to the class (e.g. to make it public).
-`addGetByKey` | Default `false`. Whether to add a method to fetch a translation by its key, like `I18n.GetByKey("ready-now")`.
-`addKeyMap`   | Default `false`. Whether to add a nested static class to access translation keys like `I18n.Keys.ReadyNow`.
+Main options:
+
+argument         | description | default value
+---------------- | ----------- | ------------
+`AddGetByKey`    | Whether to add a method to fetch a translation by its key, like `I18n.GetByKey("ready-now")` | `false`
+`AddKeyMap`      | Whether to add a nested static class to access translation keys like `I18n.Keys.ReadyNow`. | `false`
+`ClassName`      | The name of the generated class. | `I18n`
+`Namespace`      | The namespace for the generated class. | _project's root namespace_
+
+Advanced options:
+
+argument         | description | default value
+---------------- | ----------- | ------------
+`ClassModifiers` | The [access modifiers](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/access-modifiers) to apply to the generated class (e.g. to make it public). | `internal static`
+`CreateBackup`   | Whether to add a backup of the generated class to the project folder in a `Generated` subfolder. If it's disabled, the generated file will be hidden and excluded from source control. | `false`
 
 ## See also
 * [Release notes](release-notes.md)

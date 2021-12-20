@@ -7,9 +7,22 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder.Framework
         ** Accessors
         *********/
         /// <summary>The raw placeholder token name.</summary>
-        public string Key { get; set; }
+        public string Key { get; }
 
         /// <summary>The normalized name for a parameter which sets the token value.</summary>
-        public string ParameterName { get; set; }
+        public string ParameterName { get; }
+
+
+        /*********
+        ** Public methods
+        *********/
+        /// <summary>Construct an instance.</summary>
+        /// <param name="key">The raw placeholder token name.</param>
+        /// <param name="parameterName">The normalized name for a parameter which sets the token value.</param>
+        public TranslationToken(string key, string parameterName)
+        {
+            this.Key = key;
+            this.ParameterName = parameterName;
+        }
     }
 }
