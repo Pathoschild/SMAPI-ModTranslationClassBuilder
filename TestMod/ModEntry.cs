@@ -6,6 +6,9 @@ namespace Pathoschild.Stardew.TestMod
     public class ModEntry : Mod
     {
         /// <inheritdoc />
-        public override void Entry(IModHelper helper) { }
+        public override void Entry(IModHelper helper)
+        {
+            I18n.Init(helper.Translation);
+        }
     }
 }

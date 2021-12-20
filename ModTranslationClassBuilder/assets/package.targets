@@ -1,0 +1,30 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!-- make build properties available to source generators -->
+    <ItemGroup>
+        <CompilerVisibleProperty Include="RootNamespace" />
+        <CompilerVisibleProperty Include="TranslationClassBuilder_AddGetByKey" />
+        <CompilerVisibleProperty Include="TranslationClassBuilder_AddKeyMap" />
+        <CompilerVisibleProperty Include="TranslationClassBuilder_ClassModifiers" />
+        <CompilerVisibleProperty Include="TranslationClassBuilder_ClassName" />
+        <CompilerVisibleProperty Include="TranslationClassBuilder_Namespace" />
+    </ItemGroup>
+
+    <!-- make translation file available to source generators -->
+    <ItemGroup>
+        <AdditionalFiles Include="i18n\default.json" />
+    </ItemGroup>
+
+    <!-- allow loading translation class from file so it can be in source control -->
+    <Choose>
+        <When Condition="'$(TranslationClassBuilder_CreateBackup)' == 'true'">
+            <PropertyGroup>
+                <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+                <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+            </PropertyGroup>
+            <ItemGroup>
+                 <!-- don't include output from previous source generator execution in future runs -->
+                <Compile Remove="Generated/*/**/*.cs" />
+            </ItemGroup>
+        </When>
+    </Choose>
+</Project>

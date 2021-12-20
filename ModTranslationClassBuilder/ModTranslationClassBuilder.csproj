@@ -1,39 +1,55 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
+    <!--NuGet package-->
+    <PackageId>Pathoschild.Stardew.ModTranslationClassBuilder</PackageId>
+    <Title>SMAPI mod translation class builder</Title>
+    <Version>2.0.0</Version>
+    <Authors>Pathoschild</Authors>
+    <Description>Autogenerate a strongly-typed class to access i18n translation files from your SMAPI mod code.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>images/package-icon.png</PackageIcon>
+    <PackageProjectUrl>https://github.com/Pathoschild/SMAPI-ModTranslationClassBuilder#readme</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Pathoschild/SMAPI-ModTranslationClassBuilder.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>smapi;stardew;valley</PackageTags>
+
     <!--build-->
     <AssemblyName>Pathoschild.Stardew.ModTranslationClassBuilder</AssemblyName>
     <RootNamespace>Pathoschild.Stardew.ModTranslationClassBuilder</RootNamespace>
-    <TargetFramework>net452</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
 
-    <!--NuGet package-->
-    <PackageId>Pathoschild.Stardew.ModTranslationClassBuilder</PackageId>
-    <Title>SMAPI mod translation class builder</Title>
-    <Version>1.0.1</Version>
-    <Authors>Pathoschild</Authors>
-    <Description>Autogenerate a strongly-typed class to access i18n translation files from your SMAPI mod code. See the readme for instructions.</Description>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIcon>images/package-icon.png</PackageIcon>
-    <PackageProjectUrl>https://github.com/Pathoschild/SMAPI-ModTranslationClassBuilder#readme</PackageProjectUrl>
-    <PackageReleaseNotes>
-      - Added support for 64-bit in Stardew Valley 1.5.5.
-    </PackageReleaseNotes>
-    <RepositoryUrl>https://github.com/Pathoschild/SMAPI-ModTranslationClassBuilder</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>smapi;stardew;valley</PackageTags>
+    <!--copy dependency DLLs to bin folder so we can include them in package -->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
-    <!-- build settings -->
-    <LangVersion>latest</LangVersion>
+    <!-- don't add translation class builder as a normal assembly reference, we'll package it as an analyzer below -->
+    <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.3" PrivateAssets="all" IncludeAssets="runtime; build; native; contentfiles; analyzers; buildtransitive" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" GeneratePathProperty="true" PrivateAssets="all" />
   </ItemGroup>
 
+  <!-- undocumented hack to fix NuGet dependencies in source generators: https://github.com/dotnet/roslyn/discussions/47517 -->
+  <PropertyGroup>
+    <GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+  </PropertyGroup>
+  <Target Name="GetDependencyTargetPaths">
+    <ItemGroup>
+      <TargetPathWithTargetPlatformMoniker Include="$(PKGNewtonsoft_Json)\lib\netstandard2.0\Newtonsoft.Json.dll" IncludeRuntimeDependency="false" />
+    </ItemGroup>
+  </Target>
+
+  <!-- package structure -->
   <ItemGroup>
-    <None Include="package-icon.png" Pack="true" PackagePath="images/" />
+    <None PackagePath="analyzers/dotnet/cs" Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" Visible="false" />
+    <None PackagePath="analyzers/dotnet/cs" Include="$(OutputPath)\Newtonsoft.Json.dll" Pack="true" Visible="false" />
+    <None PackagePath="build/Pathoschild.Stardew.ModTranslationClassBuilder.targets" Include="assets\package.targets" Pack="true" />
+    <None PackagePath="images/" Include="assets\package-icon.png" Pack="true" />
   </ItemGroup>
 </Project>
