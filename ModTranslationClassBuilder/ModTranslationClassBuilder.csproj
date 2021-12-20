@@ -1,17 +1,14 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <!--NuGet package-->
     <PackageId>Pathoschild.Stardew.ModTranslationClassBuilder</PackageId>
     <Title>SMAPI mod translation class builder</Title>
-    <Version>1.0.1</Version>
+    <Version>2.0.0</Version>
     <Authors>Pathoschild</Authors>
-    <Description>Autogenerate a strongly-typed class to access i18n translation files from your SMAPI mod code. See the readme for instructions.</Description>
+    <Description>Autogenerate a strongly-typed class to access i18n translation files from your SMAPI mod code.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>images/package-icon.png</PackageIcon>
     <PackageProjectUrl>https://github.com/Pathoschild/SMAPI-ModTranslationClassBuilder#readme</PackageProjectUrl>
-    <PackageReleaseNotes>
-      - Added support for 64-bit in Stardew Valley 1.5.5.
-    </PackageReleaseNotes>
     <RepositoryUrl>https://github.com/Pathoschild/SMAPI-ModTranslationClassBuilder.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>smapi;stardew;valley</PackageTags>

@@ -53,7 +53,7 @@ See the [test mod](TestMod) for an example of the generated class in an actual m
    ```c#
    I18n.Init(helper.Translation);
    ```
-3. Click _Build > Rebuild Solution_ to generate the `I18n` class.
+3. If needed, click _Build > Rebuild Solution_ to regenerate the `I18n` class.
 
 That's it! Now you can immediately use `I18n` anywhere in your mod code. The class will be updated
 whenever you rebuild the project.
