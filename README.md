@@ -53,14 +53,13 @@ See the [test mod](TestMod) for an example of the generated class in an actual m
    ```c#
    I18n.Init(helper.Translation);
    ```
-3. If needed, click _Build > Rebuild Solution_ to regenerate the `I18n` class.
 
 That's it! Now you can immediately use `I18n` anywhere in your mod code. The class will be updated
-whenever you rebuild the project.
+automatically whenever your `i18n/default.json` file changes.
 
 ### Conventions
-* The class uses your assembly name as the default namespace; so if your mod project is `YourMod`,
-  then the generated file will be `YourMod.I18n`. You can [change that](#customization) if needed.
+* The class uses your project's root namespace by default (you can [change that](#customization)
+  if needed).
 * Translation keys are converted to CamelCase, with `.` changed to `_` to help group categories.
 
   For example:
