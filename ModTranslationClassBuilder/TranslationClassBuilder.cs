@@ -122,7 +122,7 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder
                     // method
                     {
                         string renderedKey = addKeyMap ? $"Keys.{entry.MethodName}" : $@"""{entry.Key}""";
-                        string renderedArgs = string.Join(", ", entry.Tokens.Select(token => $"object {token.ParameterName}"));
+                        string renderedArgs = string.Join(", ", entry.Tokens.Select(token => $"object? {token.ParameterName}"));
                         string renderedTokenObj = entry.Tokens.Any() ? $", {this.GenerateTokenParameter(entry)}" : "";
 
                         output

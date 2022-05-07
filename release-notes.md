@@ -1,6 +1,9 @@
 ← [README](README.md)
 
 # Release notes
+## Upcoming release
+* The generated token arguments are now marked nullable.
+
 ## 2.0.0
 Released 19 December 2021.
 
