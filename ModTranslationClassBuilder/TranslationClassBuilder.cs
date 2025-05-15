@@ -228,10 +228,20 @@ namespace Pathoschild.Stardew.ModTranslationClassBuilder
         {
             List<TranslationEntry> entries = new();
 
+            // get absolute path to i18n folder
+            string? translationsBasePath = null;
+            if (context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.MSBuildProjectDirectory", out string? projectDir))
+                translationsBasePath = Path.Combine(projectDir, "i18n") + Path.DirectorySeparatorChar;
+
+            // scan files
             bool foundRootFile = false;
             bool foundSubfolder = false;
             foreach (AdditionalText file in context.AdditionalFiles)
             {
+                // ignore non-i18n files
+                if (translationsBasePath != null && !Path.GetFullPath(file.Path).StartsWith(translationsBasePath))
+                    continue;
+
                 // parse path
                 if (!this.TryParseTranslationFilePath(file.Path, out bool isRootFile, out bool isDefaultLocale))
                 {
