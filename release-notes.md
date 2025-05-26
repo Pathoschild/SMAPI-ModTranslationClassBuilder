@@ -1,7 +1,9 @@
 ← [README](README.md)
 
 # Release notes
-## Upcoming release
+## 2.2.1
+Released 25 May 2025.
+
 * Fixed error when a project has non-`i18n` files added as additional files.
 
 ## 2.2.0

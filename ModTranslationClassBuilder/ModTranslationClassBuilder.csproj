@@ -3,7 +3,7 @@
     <!--NuGet package-->
     <PackageId>Pathoschild.Stardew.ModTranslationClassBuilder</PackageId>
     <Title>SMAPI mod translation class builder</Title>
-    <Version>2.2.0</Version>
+    <Version>2.2.1</Version>
     <Authors>Pathoschild</Authors>
     <Description>Access your SMAPI mod translation files in a strongly-typed way.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
