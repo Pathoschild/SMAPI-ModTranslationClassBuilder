@@ -1,6 +1,7 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <!-- make build properties available to source generators -->
     <ItemGroup>
+        <CompilerVisibleProperty Include="MSBuildProjectDirectory" />
         <CompilerVisibleProperty Include="RootNamespace" />
         <CompilerVisibleProperty Include="TranslationClassBuilder_AddKeyMap" />
         <CompilerVisibleProperty Include="TranslationClassBuilder_ClassModifiers" />
